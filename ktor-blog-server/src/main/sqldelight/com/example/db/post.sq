@@ -1,0 +1,17 @@
+CREATE TABLE post (
+    id      INTEGER PRIMARY KEY NOT NULL,
+    created TEXT DEFAULT CURRENT_TIMESTAMP,
+    title   TEXT NOT NULL,
+    author  TEXT NOT NULL,
+    content TEXT NOT NULL
+);
+
+getPosts:
+SELECT * FROM post;
+
+getPost:
+SELECT * FROM post WHERE id = ?;
+
+createPost:
+INSERT INTO post (title, author, content)
+VALUES (?, ?, ?);
