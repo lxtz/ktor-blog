@@ -8,6 +8,8 @@ class PostService(private val database: Database) {
 
     fun getPost(id: Long): Post? = database.postQueries.getPost(id).executeAsOneOrNull()?.toModel()
 
-    fun createPost(title: String, author: String, content: String): Unit =
+    fun createPost(title: String, author: String, content: String): Long {
         database.postQueries.createPost(title, author, content)
+        return database.postQueries.lastInsertRowId().executeAsOne()
+    }
 }

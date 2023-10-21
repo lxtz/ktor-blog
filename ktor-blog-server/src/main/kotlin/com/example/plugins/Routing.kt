@@ -14,7 +14,11 @@ fun Application.configureRouting() {
     val postService by inject<PostService>()
 
     routing {
-        staticResources("/", "static")
+        singlePageApplication {
+            useResources = true
+            filesPath = "static"
+            defaultPage = "index.html"
+        }
         get("/hello") {
             call.respondText("Hello Server")
         }
@@ -33,7 +37,7 @@ fun Application.configureRouting() {
         }
         post("/api/posts") {
             val post = call.receive<Post>()
-            postService.createPost(post.title, post.author, post.content)
+            call.respond(postService.createPost(post.title, post.author, post.content))
         }
     }
 }

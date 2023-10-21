@@ -1,15 +1,12 @@
 <script lang="ts">
-    import {onMount} from "svelte";
+    import type {PageData} from './$types';
 
-    const clientHello = "Hello Client";
-    let serverHello = "";
-
-    onMount(async () => {
-        const request = await fetch("/hello");
-        serverHello = await request.text();
-    })
+    export let data: PageData;
 </script>
 
-<h1>Hello View</h1>
-<h1>{clientHello}</h1>
-<h1>{serverHello}</h1>
+<h2>Posts:</h2>
+{#each data.posts as post}
+    <p>
+        <a href="/post/{post.id}">{post.title}</a> by {post.author}
+    </p>
+{/each}

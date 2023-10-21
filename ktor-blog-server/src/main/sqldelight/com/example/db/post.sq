@@ -15,3 +15,6 @@ SELECT * FROM post WHERE id = ?;
 createPost:
 INSERT INTO post (title, author, content)
 VALUES (?, ?, ?);
+
+lastInsertRowId:
+SELECT last_insert_rowid();
