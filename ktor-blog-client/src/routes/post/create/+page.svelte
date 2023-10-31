@@ -1,6 +1,8 @@
 <script lang="ts">
 
     import {goto} from "$app/navigation";
+    import {authService} from "../../../hooks.client";
+    import {onMount} from "svelte";
 
     let title: string;
     let author: string;
@@ -8,11 +10,18 @@
 
     let invalid = false;
 
+    onMount(async () => {
+        if(!authService.isAuthenticated()) {
+            await goto("/login");
+        }
+    });
+
     async function onCreateClick() {
         const response = await fetch("/api/posts/", {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
+                "Authorization": authService.getHeader()
             },
             body: JSON.stringify({
                 title, author, content

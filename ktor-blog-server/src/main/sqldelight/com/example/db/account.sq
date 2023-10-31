@@ -1,0 +1,23 @@
+CREATE TABLE account (
+    id              INTEGER PRIMARY KEY NOT NULL,
+    created         TEXT DEFAULT CURRENT_TIMESTAMP,
+    username        TEXT NOT NULL,
+    password_hash   TEXT NOT NULL,
+    admin           INTEGER AS kotlin.Boolean NOT NULL
+);
+
+getAccounts:
+SELECT * FROM account;
+
+getAccount:
+SELECT * FROM account WHERE id = ?;
+
+findAccountByName:
+SELECT * FROM account WHERE username = ?;
+
+createAccount:
+INSERT INTO account (username, password_hash, admin)
+VALUES (?, ?, ?);
+
+lastInsertRowId:
+SELECT last_insert_rowid();
